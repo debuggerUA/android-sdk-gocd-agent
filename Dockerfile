@@ -2,16 +2,16 @@ FROM gocd/gocd-agent-ubuntu-18.04:v20.5.0
 
 ENV ANDROID_HOME="/opt/android-sdk" \
     ANDROID_NDK="/opt/android-ndk" \
-    FLUTTER_HOME="/opt/flutter" \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 # Get the latest version from https://developer.android.com/studio/index.html
 ENV ANDROID_SDK_TOOLS_VERSION="6514223"
 
+USER root
+
 RUN apt-get clean && \
     apt-get update -qq && \
-    apt-get install -qq -y apt-utils locales && \
-    locale-gen $LANG
+    apt-get install -qq -y apt-utils
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     TERM=dumb \
