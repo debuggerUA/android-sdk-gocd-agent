@@ -95,6 +95,8 @@ RUN echo "build tools 25-30" && \
         "build-tools;25.0.3" "build-tools;25.0.2" \
         "build-tools;25.0.1" "build-tools;25.0.0" > /dev/null
 
+RUN yes | sdkmanager --licenses
+
 RUN echo "emulator" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager "emulator" > /dev/null
 
@@ -102,10 +104,6 @@ RUN echo "kotlin" && \
     wget --quiet -O sdk.install.sh "https://get.sdkman.io" && \
     bash -c "bash ./sdk.install.sh > /dev/null && source ~/.sdkman/bin/sdkman-init.sh && sdk install kotlin" && \
     rm -f sdk.install.sh
-
-# Copy sdk license agreement files.
-RUN mkdir -p $ANDROID_HOME/licenses
-COPY sdk/licenses/* $ANDROID_HOME/licenses/
 
 # labels, see http://label-schema.org/
 LABEL maintainer="Denis Babak"
