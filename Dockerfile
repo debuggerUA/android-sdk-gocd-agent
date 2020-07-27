@@ -1,21 +1,12 @@
 FROM gocd/gocd-agent-ubuntu-18.04:v20.5.0
 
-USER root
-
 ENV ANDROID_HOME="/opt/android-sdk" \
     ANDROID_NDK="/opt/android-ndk" \
     FLUTTER_HOME="/opt/flutter" \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
-ENV TZ=America/Los_Angeles
-
 # Get the latest version from https://developer.android.com/studio/index.html
 ENV ANDROID_SDK_TOOLS_VERSION="6514223"
-
-# Set locale
-ENV LANG="en_US.UTF-8" \
-    LANGUAGE="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8"
 
 RUN apt-get clean && \
     apt-get update -qq && \
@@ -70,8 +61,6 @@ RUN apt-get update -qq > /dev/null && \
         wget \
         zip \
         zlib1g-dev > /dev/null && \
-    echo "set timezone" && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
 
 # Install Android SDK
 RUN echo "sdk tools ${ANDROID_SDK_TOOLS_VERSION}" && \
