@@ -1,5 +1,7 @@
 FROM gocd/gocd-agent-ubuntu-18.04:v20.5.0
 
+USER root
+
 ENV ANDROID_HOME="/opt/android-sdk" \
     ANDROID_NDK="/opt/android-ndk" \
     FLUTTER_HOME="/opt/flutter" \
