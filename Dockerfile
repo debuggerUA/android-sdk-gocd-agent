@@ -5,13 +5,13 @@ ENV ANDROID_HOME="/opt/android-sdk" \
     JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 # Get the latest version from https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_TOOLS_VERSION="6514223"
+ENV ANDROID_SDK_TOOLS_VERSION="4333796"
 
 USER root
 
 RUN apt-get clean && \
     apt-get update -qq && \
-    apt-get install -qq -y apt-utils
+    apt-get install -qq -y apt-utils locales
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     TERM=dumb \
@@ -27,14 +27,11 @@ WORKDIR /tmp
 
 # Installing packages
 RUN apt-get update -qq > /dev/null && \
-    apt-get install -qq locales > /dev/null && \
-    locale-gen "$LANG" > /dev/null && \
     apt-get install -qq --no-install-recommends \
         autoconf \
         build-essential \
         curl \
         file \
-        git \
         gpg-agent \
         less \
         lib32stdc++6 \
@@ -60,7 +57,7 @@ RUN apt-get update -qq > /dev/null && \
         vim-tiny \
         wget \
         zip \
-        zlib1g-dev > /dev/null && \
+        zlib1g-dev > /dev/null
 
 # Install Android SDK
 RUN echo "sdk tools ${ANDROID_SDK_TOOLS_VERSION}" && \
