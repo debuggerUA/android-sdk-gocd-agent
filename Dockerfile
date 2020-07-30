@@ -6,6 +6,7 @@ ENV ANDROID_HOME="/opt/android-sdk" \
 
 # Get the latest version from https://developer.android.com/studio/index.html
 ENV ANDROID_SDK_TOOLS_VERSION="4333796"
+ENV ANDROID_NDK_VERSION="r21c"
 
 USER root
 
@@ -66,6 +67,13 @@ RUN echo "sdk tools ${ANDROID_SDK_TOOLS_VERSION}" && \
     mkdir --parents "$ANDROID_HOME" && \
     unzip -q sdk-tools.zip -d "$ANDROID_HOME" && \
     rm --force sdk-tools.zip
+
+RUN echo "ndk ${ANDROID_NDK_VERSION}" && \
+	wget --quiet --output-document=android-ndk.zip \
+	"http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip" && \
+	mkdir --parents "$ANDROID_NDK_HOME" && \
+	unzip -q android-ndk.zip -d "$ANDROID_NDK" && \
+	rm --force android-ndk.zip
 
 # Install SDKs
 # Please keep these in descending order!
